@@ -10,7 +10,6 @@ include_directories(src/main/cpp/include)
 add_library(
         arm_study
         SHARED
-       # src/main/cpp/aarch64/arm_test.S
         src/main/cpp/aarch64/test2.S
         src/main/cpp/arm_test.c
 )
