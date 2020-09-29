@@ -18,25 +18,9 @@
  * @param b 减数
  * @return 减法得到的差值
  */
-/* int __attribute__((naked, pure)) MyASMTest(int a, int b);
-{
-#ifdef __arm__
-
-    asm(".thumb");
-    asm(".syntax unified");
-
-    asm("sub r0, r0, r1");
-    asm("add r0, r0, #1");  // 为了区分当前用的是AArch32还是AArch64，这里对于AArch32情况下再加1
-    asm("bx lr");
-
-#else
-    asm("sub w0, w0, w1");
-    asm("ret");
-#endif
-}*/
+// int __attribute__((naked, pure)) MyASMTest(int a, int b);
 
 extern void add_float_neon2(float* dst, float* src1, float* src2, int count);
-extern int MyASMTest(int a, int b);
 
 JNICALL jint Java_com_heaven7_android_compilation_ArmCompilation_testSub(JNIEnv *env, jclass clazz, jint a , jint b){
     //return MyASMTest(a, b);
