@@ -13,8 +13,9 @@
 
 .section .text,"xx"
 .global MyASMTest
+.type MyASMTest, %function
 MyASMTest:
     ADD r0, r0, r1
     MOV pc, lr
 
-.end
+ret
