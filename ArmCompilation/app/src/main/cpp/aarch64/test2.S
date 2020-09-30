@@ -13,17 +13,27 @@ add_float_neon2:
     ld1     {v0.4s}, [x1], #16   //加载x1指向的存储单元的低32位 加载到v0寄存器
     ld1     {v1.4s}, [x2], #16
     fadd    v0.4s, v0.4s, v1.4s  //浮点型加法
-    subs x3, x3, #4              //自减
-    st1  {v0.4s}, [x0], #16      //将寄存器v0的低32位存储到x0处
+    subs x3, x3, #4              //自减 x3 -= 4(字节)
+    st1  {v0.4s}, [x0], #16      //将寄存器v0的低32位存储到x0处, 然后x0 += 16
     bgt .L_loop                  //跳转, 类似goto
 
     ret
+
+    /**
+     //like
+     void add_float_c(float* dst, float* src1, float* src2, int count)
+     {
+
+          int i;
+
+          for (i = 0; i < count; i++)
+
+              dst[i] = src1[i] + src2[i];
+
+     }
+     */
 //arm64
-//Bn: 一个Byte的大小
-//Hn: half word. 就是16位
-//Sn: single word. 32位
-//Dn: double word. 64位
-//Qn: quad word. 128位
+//w0-w21
     //x0-x7 用于传递子程序参数和结果，使用时不需要保存，多余参数采用堆栈传递，64位返回结果采用X0表示，128位返回结果采用X1:X0表示。
     //X9~X15：临时寄存器，使用时不需要保存。
    // X19~X28：临时寄存器，使用时必须保存。
@@ -43,6 +53,8 @@ add_float_neon2:
    st1	{v30.8H},	[x1],	#16	@ 将 寄存器v30中128位数据存储到x1地址处，然后x1=x1+16
    st1	{v0.S}[0],	[x0],	x2	@ 将 寄存器v0的低32位数据存储到x0地址处吗，然后x0=x0+x2
 
+lsl #3 表示左移3位
+add         x3, x3, x0, lsl #3 @ 表示 x3 += x0 * 2^3
    */
 
    /**

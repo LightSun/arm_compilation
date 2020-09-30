@@ -11,7 +11,7 @@
 #include <jni.h>
 #include <stdio.h>
 #include <string.h>
-
+#include <stdint.h>
 /*
  * 测试内联汇编，分别根据AArch32架构以及AArch64架构来实现一个简单的减法计算
  * @param a 被减数

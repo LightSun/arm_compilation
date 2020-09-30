@@ -6,12 +6,14 @@ enable_language(ASM)
 include_directories(src/main/cpp/include)
 
 #aux_source_directory(src/main/cpp/src SRC_study)
+aux_source_directory(src/main/cpp/libyuv SRC_libyuv)
 
 add_library(
         arm_study
         SHARED
         src/main/cpp/aarch64/test2.S
         src/main/cpp/arm_test.c
+        #${SRC_libyuv}
 )
 find_library( # Sets the name of the path variable.
         log-lib
